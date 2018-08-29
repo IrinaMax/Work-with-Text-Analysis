@@ -1,0 +1,38 @@
+# Load dplyr and tidytext
+library(dplyr)
+library(tidytext)
+
+# Choose the bing lexicon
+get_sentiments("bing")
+
+# Choose the nrc lexicon
+get_sentiments("nrc") %>%
+  count(sentiment) # Count words by sentiment
+  # A tibble: 10 x 2
+   sentiment        n
+   <chr>        <int>
+ 1 anger         1247
+ 2 anticipation   839
+ 3 disgust       1058
+ 4 fear          1476
+ 5 joy            689
+ 
+ # geocoded_tweets has been pre-defined
+geocoded_tweets
+
+# Access bing lexicon: bing
+bing <- get_sentiments("bing")
+
+# Use data frame with text data
+geocoded_tweets %>%
+  # With inner join, implement sentiment analysis using `bing`
+  inner_join(bing)
+  Joining, by = "word"
+# A tibble: 64,303 x 4
+   state   word             freq sentiment
+   <chr>   <chr>           <dbl> <chr>    
+ 1 alabama abuse           7186. negative 
+ 2 alabama abused          3073. negative 
+ 3 alabama accomplish      5957. positive 
+ 4 alabama accomplished   13121. positive 
+ 5 alabama accomplishment  3036. positive 
